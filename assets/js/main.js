@@ -204,6 +204,12 @@ function openProject(projectId) {
     item.textContent = tag;
     return item;
   }));
+  const modalLink = projectModal.querySelector('.modal-link');
+  const modalNote = projectModal.querySelector('.modal-note');
+  const projectLink = card.dataset.link;
+  modalLink.hidden = !projectLink;
+  modalNote.hidden = Boolean(projectLink);
+  if (projectLink) modalLink.href = projectLink;
   projectModal.showModal();
 }
 
