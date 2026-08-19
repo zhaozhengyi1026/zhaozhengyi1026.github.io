@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="赵正意的个人网站与项目作品集。">
+  <title>作品集｜赵正意</title>
+  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.style=localStorage.getItem('site-style')||'classic';</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="返回首页"><span class="brand-mark">Repeat</span></a>
+    <div class="header-actions">
+      <nav id="site-nav" class="site-nav" aria-label="主导航"><a href="index.html">首页</a><a href="about.html">关于我</a><a class="active" href="portfolio.html" aria-current="page">作品集</a></nav>
+      <div class="display-controls" aria-label="显示设置">
+        <button class="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><span aria-hidden="true">☾</span></button>
+        <button class="style-toggle" type="button" aria-label="切换抽象派风格" aria-pressed="false" title="切换抽象派风格"><span aria-hidden="true">◆</span></button>
+      </div>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+    </div>
+  </header>
+
+  <main id="main" class="portfolio-main section-shell">
+    <header class="portfolio-header reveal">
+      <p class="section-kicker">PORTFOLIO / 作品集</p>
+      <h1>从想法，<br>到可以访问的作品。</h1>
+      <p>这里收录我做过的网站与个人项目。等你提供截图和链接后，可以直接替换下面卡片中的占位内容。</p>
+    </header>
+
+    <section class="portfolio-grid" aria-label="项目列表">
+      <article class="work-card reveal" data-project="project-1" data-title="项目名称一" data-category="网站设计 · 开发" data-description="这里可以写项目要解决的问题、你的职责和最后完成的结果。收到真实截图和链接后，直接替换轮播中的占位图即可。" data-tags="网页设计,前端开发,响应式">
+        <div class="work-carousel" data-carousel>
+          <div class="carousel-track">
+            <button class="carousel-slide active" type="button" data-open-project="project-1" aria-label="查看项目一详情，第 1 张图"><span class="image-placeholder"><span>PROJECT SCREENSHOT</span><strong>01</strong><small>建议比例 16:10</small></span></button>
+            <button class="carousel-slide" type="button" data-open-project="project-1" aria-label="查看项目一详情，第 2 张图"><span class="image-placeholder detail"><span>DETAIL SCREENSHOT</span><strong>01.2</strong><small>项目细节图</small></span></button>
+          </div>
+          <button class="carousel-control carousel-prev" type="button" aria-label="上一张">‹</button><button class="carousel-control carousel-next" type="button" aria-label="下一张">›</button>
+          <div class="carousel-dots" aria-label="轮播位置"><button class="active" type="button" aria-label="第 1 张" aria-pressed="true"></button><button type="button" aria-label="第 2 张" aria-pressed="false"></button></div>
+        </div>
+        <div class="work-meta"><div><p>网站设计 · 开发</p><h2>项目名称一</h2></div><button class="work-open" type="button" data-open-project="project-1" aria-label="打开项目一详情">详情</button></div>
+      </article>
+      <article class="work-card reveal" data-project="project-2" data-title="项目名称二" data-category="个人项目" data-description="这里可以补充项目背景、使用方法和你在开发过程中的关键思考。轮播支持放置两张或更多截图。" data-tags="个人项目,产品思考,开发">
+        <div class="work-carousel" data-carousel>
+          <div class="carousel-track">
+            <button class="carousel-slide active" type="button" data-open-project="project-2" aria-label="查看项目二详情，第 1 张图"><span class="image-placeholder alternate"><span>PROJECT SCREENSHOT</span><strong>02</strong><small>等待你的截图</small></span></button>
+            <button class="carousel-slide" type="button" data-open-project="project-2" aria-label="查看项目二详情，第 2 张图"><span class="image-placeholder alternate detail"><span>DETAIL SCREENSHOT</span><strong>02.2</strong><small>项目细节图</small></span></button>
+          </div>
+          <button class="carousel-control carousel-prev" type="button" aria-label="上一张">‹</button><button class="carousel-control carousel-next" type="button" aria-label="下一张">›</button>
+          <div class="carousel-dots" aria-label="轮播位置"><button class="active" type="button" aria-label="第 1 张" aria-pressed="true"></button><button type="button" aria-label="第 2 张" aria-pressed="false"></button></div>
+        </div>
+        <div class="work-meta"><div><p>个人项目</p><h2>项目名称二</h2></div><button class="work-open" type="button" data-open-project="project-2" aria-label="打开项目二详情">详情</button></div>
+      </article>
+      <article class="work-card reveal" data-delay="1" data-project="project-3" data-title="项目名称三" data-category="实验与练习" data-description="这里适合记录实验目标、探索过程，以及它最终带来的收获。项目完善后可以增加访问地址。" data-tags="实验,练习,持续更新">
+        <div class="work-carousel" data-carousel>
+          <div class="carousel-track">
+            <button class="carousel-slide active" type="button" data-open-project="project-3" aria-label="查看项目三详情，第 1 张图"><span class="image-placeholder warm"><span>PROJECT SCREENSHOT</span><strong>03</strong><small>等待你的截图</small></span></button>
+            <button class="carousel-slide" type="button" data-open-project="project-3" aria-label="查看项目三详情，第 2 张图"><span class="image-placeholder warm detail"><span>DETAIL SCREENSHOT</span><strong>03.2</strong><small>项目细节图</small></span></button>
+          </div>
+          <button class="carousel-control carousel-prev" type="button" aria-label="上一张">‹</button><button class="carousel-control carousel-next" type="button" aria-label="下一张">›</button>
+          <div class="carousel-dots" aria-label="轮播位置"><button class="active" type="button" aria-label="第 1 张" aria-pressed="true"></button><button type="button" aria-label="第 2 张" aria-pressed="false"></button></div>
+        </div>
+        <div class="work-meta"><div><p>实验与练习</p><h2>项目名称三</h2></div><button class="work-open" type="button" data-open-project="project-3" aria-label="打开项目三详情">详情</button></div>
+      </article>
+    </section>
+  </main>
+
+  <dialog class="project-modal" id="project-modal" aria-labelledby="modal-title">
+    <div class="modal-shell">
+      <button class="modal-close" type="button" aria-label="关闭项目详情">×</button>
+      <div class="modal-preview" aria-hidden="true"><span>PROJECT</span><strong id="modal-number">01</strong></div>
+      <div class="modal-content"><p class="modal-category" id="modal-category"></p><h2 id="modal-title"></h2><p id="modal-description"></p><ul class="modal-tags" id="modal-tags" aria-label="项目标签"></ul><p class="modal-note">真实项目链接准备好后，可在这里加入“访问项目”按钮。</p></div>
+    </div>
+  </dialog>
+
+  <footer class="site-footer section-shell"><p>© <span data-year></span> 赵正意</p><p>保持好奇，持续创造。</p><a href="#main">回到顶部</a></footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
