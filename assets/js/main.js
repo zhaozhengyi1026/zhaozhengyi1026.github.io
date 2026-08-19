@@ -198,6 +198,16 @@ function openProject(projectId) {
   projectModal.querySelector('#modal-category').textContent = card.dataset.category;
   projectModal.querySelector('#modal-title').textContent = card.dataset.title;
   projectModal.querySelector('#modal-description').textContent = card.dataset.description;
+  const modalThumbnail = projectModal.querySelector('#modal-thumbnail');
+  const projectScreenshot = card.querySelector('.project-screenshot');
+  modalThumbnail.hidden = !projectScreenshot;
+  if (projectScreenshot) {
+    modalThumbnail.src = projectScreenshot.src;
+    modalThumbnail.alt = `${card.dataset.title} 项目缩略图`;
+  } else {
+    modalThumbnail.removeAttribute('src');
+    modalThumbnail.alt = '';
+  }
   const tags = projectModal.querySelector('#modal-tags');
   tags.replaceChildren(...card.dataset.tags.split(',').map((tag) => {
     const item = document.createElement('li');
