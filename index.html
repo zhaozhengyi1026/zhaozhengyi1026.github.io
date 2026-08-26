@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="赵正意的个人网站，记录学习、创作与作品。">
   <title>赵正意｜个人网站</title>
-  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.style=localStorage.getItem('site-style')||'classic';</script>
+  <script>(()=>{const root=document.documentElement;let theme;let style;try{theme=localStorage.getItem('theme');style=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.style=style||'classic';})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="images/life-avatar-favicon.jpg" type="image/jpeg">
 </head>
 <body class="home-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -22,8 +23,9 @@
         <a class="active" href="index.html" aria-current="page">首页</a>
         <a href="about.html">关于我</a>
         <a href="portfolio.html">作品集</a>
+        <a href="game.html">小游戏</a>
       </nav>
-      <div class="display-controls" aria-label="显示设置">
+      <div class="display-controls" role="group" aria-label="显示设置">
         <button class="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><span aria-hidden="true">☾</span></button>
         <button class="style-toggle" type="button" aria-label="切换抽象派风格" aria-pressed="false" title="切换抽象派风格"><span aria-hidden="true">◆</span></button>
       </div>
@@ -49,14 +51,14 @@
 
       <div class="hero-portrait reveal" data-delay="1">
         <div class="portrait-frame">
-          <img class="life-photo" src="images/%E7%94%9F%E6%B4%BB%E5%A4%B4%E5%83%8F.jpg" alt="赵正意的生活头像">
+          <img class="life-photo" src="images/life-avatar-640.jpg" srcset="images/life-avatar-640.jpg 640w, images/life-avatar-1080.jpg 1080w" sizes="(max-width: 568px) calc(100vw - 48px), (max-width: 800px) 520px, 420px" width="640" height="480" alt="赵正意的生活头像" fetchpriority="high">
         </div>
         <div class="coordinate" aria-hidden="true">
           <span>31.2304° N</span><span>121.4737° E</span>
         </div>
       </div>
 
-      <div class="journey-line" aria-hidden="true"><span></span></div>
+      <div class="journey-line" aria-hidden="true"><span class="journey-pacman"></span></div>
     </section>
 
     <section class="home-projects section-shell" aria-labelledby="projects-title">
@@ -69,7 +71,7 @@
       <div class="project-preview reveal" data-delay="1">
         <a class="preview-card preview-card-main" href="https://deploy-helper-zeta.vercel.app/" target="_blank" rel="noreferrer">
           <span class="preview-index">01</span>
-          <img class="preview-thumbnail" src="images/projects/deploy-helper.png" alt="deploy-helper 网站缩略图">
+          <img class="preview-thumbnail" src="images/projects/deploy-helper.png" width="1440" height="900" alt="deploy-helper 网站缩略图" loading="lazy" decoding="async">
           <div>
             <p>开源工具 · 部署自动化</p>
             <h3>deploy-helper</h3>
@@ -78,8 +80,18 @@
         </a>
         <a class="preview-card" href="https://papertrail-virid.vercel.app/" target="_blank" rel="noreferrer">
           <span class="preview-index">02</span>
-          <img class="preview-thumbnail" src="images/projects/papertrail.png" alt="PaperTrail 网站缩略图">
+          <img class="preview-thumbnail" src="images/projects/papertrail.png" width="1440" height="900" alt="PaperTrail 网站缩略图" loading="lazy" decoding="async">
           <div><p>浏览器插件 · AI 阅读工具</p><h3>PaperTrail</h3><span>PDF 智能伴读与笔记</span></div>
+        </a>
+        <a class="preview-card" href="https://maildock-liard.vercel.app/" target="_blank" rel="noreferrer">
+          <span class="preview-index">03</span>
+          <img class="preview-thumbnail" src="images/projects/maildock.png" width="1440" height="900" alt="MailDock 网站缩略图" loading="lazy" decoding="async">
+          <div><p>Web 应用 · 临时邮箱</p><h3>MailDock</h3><span>多任务临时邮箱工作台</span></div>
+        </a>
+        <a class="preview-card" href="https://romancegenerator.vercel.app/" target="_blank" rel="noreferrer">
+          <span class="preview-index">04</span>
+          <img class="preview-thumbnail" src="images/projects/romance-generator.png" width="1440" height="900" alt="Romance Generator 网站缩略图" loading="lazy" decoding="async">
+          <div><p>Web 应用 · 浪漫方案生成</p><h3>Romance Generator</h3><span>为每一次心动生成专属方案</span></div>
         </a>
       </div>
     </section>

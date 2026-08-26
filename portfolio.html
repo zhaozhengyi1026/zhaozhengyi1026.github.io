@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="赵正意的个人网站与项目作品集。">
   <title>作品集｜赵正意</title>
-  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.style=localStorage.getItem('site-style')||'classic';</script>
+  <script>(()=>{const root=document.documentElement;let theme;let style;try{theme=localStorage.getItem('theme');style=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.style=style||'classic';})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="images/life-avatar-favicon.jpg" type="image/jpeg">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="返回首页"><span class="brand-mark">Repeat</span></a>
     <div class="header-actions">
-      <nav id="site-nav" class="site-nav" aria-label="主导航"><a href="index.html">首页</a><a href="about.html">关于我</a><a class="active" href="portfolio.html" aria-current="page">作品集</a></nav>
-      <div class="display-controls" aria-label="显示设置">
+      <nav id="site-nav" class="site-nav" aria-label="主导航"><a href="index.html">首页</a><a href="about.html">关于我</a><a class="active" href="portfolio.html" aria-current="page">作品集</a><a href="game.html">小游戏</a></nav>
+      <div class="display-controls" role="group" aria-label="显示设置">
         <button class="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><span aria-hidden="true">☾</span></button>
         <button class="style-toggle" type="button" aria-label="切换抽象派风格" aria-pressed="false" title="切换抽象派风格"><span aria-hidden="true">◆</span></button>
       </div>
@@ -36,7 +37,7 @@
       <article class="work-card reveal" data-project="project-1" data-title="deploy-helper" data-category="开源工具 · 部署自动化" data-description="一款将本地项目部署到 VPS 服务器的中文交互式工具。它按照固定步骤检查本地环境、连接服务器、确认项目信息、填写环境变量并启动服务，让不熟悉 Linux 命令的用户也能完成部署。" data-tags="Python,CLI,自动化部署,VPS" data-link="https://deploy-helper-zeta.vercel.app/">
         <div class="work-carousel" data-carousel>
           <div class="carousel-track">
-            <button class="carousel-slide active" type="button" data-open-project="project-1" aria-label="查看 deploy-helper 项目详情"><img class="project-screenshot" src="images/projects/deploy-helper.png" alt="deploy-helper 网站首页截图"></button>
+            <button class="carousel-slide active" type="button" data-open-project="project-1" aria-label="查看 deploy-helper 项目详情"><img class="project-screenshot" src="images/projects/deploy-helper.png" width="1440" height="900" alt="deploy-helper 网站首页截图" loading="lazy" decoding="async"></button>
           </div>
         </div>
         <div class="work-meta"><div><p>开源工具 · 部署自动化</p><h2>deploy-helper</h2></div><div class="work-actions"><a class="work-visit" href="https://deploy-helper-zeta.vercel.app/" target="_blank" rel="noreferrer">访问</a><button class="work-open" type="button" data-open-project="project-1" aria-label="打开 deploy-helper 详情">详情</button></div></div>
@@ -44,21 +45,26 @@
       <article class="work-card reveal" data-project="project-2" data-title="PaperTrail" data-category="浏览器插件 · AI 阅读工具" data-description="一款面向 PDF 阅读场景的智能伴读与笔记工具。它把 AI 总结、空白笔记、历史记录和 Markdown 导出放进同一个阅读工作流，帮助用户在阅读时留下结构化记录。" data-tags="浏览器插件,PDF,AI,Markdown" data-link="https://papertrail-virid.vercel.app/">
         <div class="work-carousel" data-carousel>
           <div class="carousel-track">
-            <button class="carousel-slide active" type="button" data-open-project="project-2" aria-label="查看 PaperTrail 项目详情"><img class="project-screenshot" src="images/projects/papertrail.png" alt="PaperTrail 网站首页截图"></button>
+            <button class="carousel-slide active" type="button" data-open-project="project-2" aria-label="查看 PaperTrail 项目详情"><img class="project-screenshot" src="images/projects/papertrail.png" width="1440" height="900" alt="PaperTrail 网站首页截图" loading="lazy" decoding="async"></button>
           </div>
         </div>
         <div class="work-meta"><div><p>浏览器插件 · AI 阅读工具</p><h2>PaperTrail</h2></div><div class="work-actions"><a class="work-visit" href="https://papertrail-virid.vercel.app/" target="_blank" rel="noreferrer">访问</a><button class="work-open" type="button" data-open-project="project-2" aria-label="打开 PaperTrail 详情">详情</button></div></div>
       </article>
-      <article class="work-card reveal" data-delay="1" data-project="project-3" data-title="项目名称三" data-category="实验与练习" data-description="这里适合记录实验目标、探索过程，以及它最终带来的收获。项目完善后可以增加访问地址。" data-tags="实验,练习,持续更新">
+      <article class="work-card reveal" data-delay="1" data-project="project-3" data-title="MailDock" data-category="Web 应用 · 临时邮箱" data-description="一个面向多任务场景的临时邮箱工作台。用户可以在同一页面创建并管理多个 10 分钟或 1 小时的临时收件箱，用于接收验证码、快速测试和延迟邮件确认，邮箱到期后不留档。" data-tags="临时邮箱,多任务,Web 应用,隐私" data-link="https://maildock-liard.vercel.app/">
         <div class="work-carousel" data-carousel>
           <div class="carousel-track">
-            <button class="carousel-slide active" type="button" data-open-project="project-3" aria-label="查看项目三详情，第 1 张图"><span class="image-placeholder warm"><span>PROJECT SCREENSHOT</span><strong>03</strong><small>等待你的截图</small></span></button>
-            <button class="carousel-slide" type="button" data-open-project="project-3" aria-label="查看项目三详情，第 2 张图"><span class="image-placeholder warm detail"><span>DETAIL SCREENSHOT</span><strong>03.2</strong><small>项目细节图</small></span></button>
+            <button class="carousel-slide active" type="button" data-open-project="project-3" aria-label="查看 MailDock 项目详情"><img class="project-screenshot" src="images/projects/maildock.png" width="1440" height="900" alt="MailDock 网站首页截图" loading="lazy" decoding="async"></button>
           </div>
-          <button class="carousel-control carousel-prev" type="button" aria-label="上一张">‹</button><button class="carousel-control carousel-next" type="button" aria-label="下一张">›</button>
-          <div class="carousel-dots" aria-label="轮播位置"><button class="active" type="button" aria-label="第 1 张" aria-pressed="true"></button><button type="button" aria-label="第 2 张" aria-pressed="false"></button></div>
         </div>
-        <div class="work-meta"><div><p>实验与练习</p><h2>项目名称三</h2></div><button class="work-open" type="button" data-open-project="project-3" aria-label="打开项目三详情">详情</button></div>
+        <div class="work-meta"><div><p>Web 应用 · 临时邮箱</p><h2>MailDock</h2></div><div class="work-actions"><a class="work-visit" href="https://maildock-liard.vercel.app/" target="_blank" rel="noreferrer">访问</a><button class="work-open" type="button" data-open-project="project-3" aria-label="打开 MailDock 详情">详情</button></div></div>
+      </article>
+      <article class="work-card reveal" data-delay="1" data-project="project-4" data-title="Romance Generator" data-category="Web 应用 · 浪漫方案生成" data-description="一款根据场景、对方偏好与想传达的话，生成专属浪漫方案的轻量工具。它把约会地点、花与礼物、表达方式等细节组织成可以直接执行的策划，让心意更具体，也更容易落地。" data-tags="浪漫策划,内容生成,交互体验,Web 应用" data-link="https://romancegenerator.vercel.app/">
+        <div class="work-carousel" data-carousel>
+          <div class="carousel-track">
+            <button class="carousel-slide active" type="button" data-open-project="project-4" aria-label="查看 Romance Generator 项目详情"><img class="project-screenshot" src="images/projects/romance-generator.png" width="1440" height="900" alt="Romance Generator 网站首页截图" loading="lazy" decoding="async"></button>
+          </div>
+        </div>
+        <div class="work-meta"><div><p>Web 应用 · 浪漫方案生成</p><h2>Romance Generator</h2></div><div class="work-actions"><a class="work-visit" href="https://romancegenerator.vercel.app/" target="_blank" rel="noreferrer">访问</a><button class="work-open" type="button" data-open-project="project-4" aria-label="打开 Romance Generator 详情">详情</button></div></div>
       </article>
     </section>
   </main>

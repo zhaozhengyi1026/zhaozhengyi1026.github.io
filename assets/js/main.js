@@ -3,7 +3,22 @@ const nav = document.querySelector('.site-nav');
 
 const themeButton = document.querySelector('.theme-toggle');
 const themeIcon = themeButton?.querySelector('span[aria-hidden="true"]');
-const themeLabel = themeButton?.querySelector('.theme-label');
+
+function readPreference(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+}
+
+function savePreference(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (error) {
+    // The visual setting still applies for the current page when storage is unavailable.
+  }
+}
 
 function updateThemeButton(theme) {
   if (!themeButton) return;
@@ -11,12 +26,11 @@ function updateThemeButton(theme) {
   themeButton.setAttribute('aria-pressed', String(isDark));
   themeButton.setAttribute('aria-label', isDark ? '切换浅色模式' : '切换深色模式');
   if (themeIcon) themeIcon.textContent = isDark ? '☀' : '☾';
-  if (themeLabel) themeLabel.textContent = isDark ? '日间' : '夜间';
 }
 
 function setTheme(theme, remember = true) {
   document.documentElement.dataset.theme = theme;
-  if (remember) localStorage.setItem('theme', theme);
+  if (remember) savePreference('theme', theme);
   updateThemeButton(theme);
 }
 
@@ -26,6 +40,11 @@ if (themeButton) {
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   });
 }
+
+const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+systemThemeQuery.addEventListener?.('change', (event) => {
+  if (!readPreference('theme')) setTheme(event.matches ? 'dark' : 'light', false);
+});
 
 const styleButton = document.querySelector('.style-toggle');
 const styleIcon = styleButton?.querySelector('span[aria-hidden="true"]');
@@ -45,22 +64,41 @@ if (styleButton) {
   styleButton.addEventListener('click', () => {
     const nextStyle = document.documentElement.dataset.style === 'abstract' ? 'classic' : 'abstract';
     document.documentElement.dataset.style = nextStyle;
-    localStorage.setItem('site-style', nextStyle);
+    savePreference('site-style', nextStyle);
     updateStyleButton(nextStyle);
   });
 }
 
 if (menuButton && nav) {
+  function closeMenu(returnFocus = false) {
+    nav.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.textContent = '菜单';
+    if (returnFocus) menuButton.focus();
+  }
+
   menuButton.addEventListener('click', () => {
     const isOpen = nav.classList.toggle('open');
     menuButton.setAttribute('aria-expanded', String(isOpen));
     menuButton.textContent = isOpen ? '关闭' : '菜单';
   });
 
-  nav.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.textContent = '菜单';
+  nav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) closeMenu();
+  });
+
+  document.addEventListener('pointerdown', (event) => {
+    if (!nav.classList.contains('open')) return;
+    if (!nav.contains(event.target) && event.target !== menuButton) closeMenu();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && nav.classList.contains('open')) closeMenu(true);
+  });
+
+  const mobileNavigationQuery = window.matchMedia('(max-width: 800px)');
+  mobileNavigationQuery.addEventListener?.('change', (event) => {
+    if (!event.matches) closeMenu();
   });
 }
 
@@ -231,3 +269,173 @@ projectModal?.querySelector('.modal-close')?.addEventListener('click', () => pro
 projectModal?.addEventListener('click', (event) => {
   if (event.target === projectModal) projectModal.close();
 });
+
+const journeyLine = document.querySelector('.journey-line');
+
+if (journeyLine && !reducedMotion) {
+  const pacman = journeyLine.querySelector('.journey-pacman');
+  const DOT_SPACING = 26;
+  const LEG_DURATION = 50000;
+  const TRACK_INSET = 8;
+  const MIN_EATEN_BEFORE_DETOUR = 10;
+  const MIN_MISSED_BEFORE_TURN = 3;
+  let dots = [];
+  let trackWidth = 0;
+  let maxX = 0;
+  let x = TRACK_INSET;
+  let direction = 1;
+  let phase = 'normal';
+  let phaseAfterNotice = 'normal';
+  let detourAfterEaten = null;
+  let detourDirection = 1;
+  let detourTurnAt = 0;
+  let detourReturnAt = 0;
+  let pauseUntil = 0;
+  let previousTime = 0;
+  let resizeTimer;
+
+  function reached(position, target, travelDirection) {
+    return travelDirection > 0 ? position >= target : position <= target;
+  }
+
+  function resetDots() {
+    dots.forEach(({ element }) => element.classList.remove('eaten'));
+  }
+
+  function planDetour() {
+    const latestSafeCount = dots.length - 7;
+    if (Math.random() > .76 || latestSafeCount < MIN_MISSED_BEFORE_TURN) {
+      detourAfterEaten = null;
+      return;
+    }
+    const earliestCount = Math.min(MIN_EATEN_BEFORE_DETOUR, latestSafeCount);
+    const latestCount = Math.max(earliestCount, Math.min(latestSafeCount, Math.floor(dots.length * .45)));
+    detourAfterEaten = earliestCount + Math.floor(Math.random() * (latestCount - earliestCount + 1));
+  }
+
+  function eatenDotCount() {
+    return dots.reduce((count, dot) => count + Number(dot.element.classList.contains('eaten')), 0);
+  }
+
+  function eatNearbyDots() {
+    const mouthX = x + (direction > 0 ? 20 : 4);
+    dots.forEach((dot) => {
+      if (!dot.element.classList.contains('eaten') && Math.abs(dot.x - mouthX) < 9) {
+        dot.element.classList.add('eaten');
+      }
+    });
+  }
+
+  function beginDetour() {
+    const mouthX = x + (direction > 0 ? 20 : 4);
+    const upcomingDots = dots
+      .filter((dot) => !dot.element.classList.contains('eaten') && (direction > 0 ? dot.x > mouthX : dot.x < mouthX))
+      .sort((first, second) => direction > 0 ? first.x - second.x : second.x - first.x);
+    const missedDotCount = Math.min(3 + Math.floor(Math.random() * 3), upcomingDots.length);
+
+    if (missedDotCount < MIN_MISSED_BEFORE_TURN) {
+      detourAfterEaten = null;
+      return;
+    }
+
+    detourDirection = direction;
+    const finalMissedDot = upcomingDots[missedDotCount - 1];
+    detourTurnAt = Math.max(
+      TRACK_INSET,
+      Math.min(maxX, finalMissedDot.x + detourDirection * 14)
+    );
+    detourReturnAt = x - detourDirection * 8;
+    detourAfterEaten = null;
+    phase = 'skipping';
+  }
+
+  function beginTurn(nextPhase, nextDirection, timestamp) {
+    phase = 'noticing';
+    phaseAfterNotice = nextPhase;
+    direction = nextDirection;
+    pauseUntil = timestamp + 650;
+    pacman.classList.add('is-confused');
+  }
+
+  function renderPacman() {
+    pacman.style.transform = `translate3d(${x - TRACK_INSET}px, 0, 0) scaleX(${direction})`;
+  }
+
+  function buildTrack() {
+    const previousMaxX = maxX;
+    const previousTravelWidth = previousMaxX - TRACK_INSET;
+    const progress = previousTravelWidth > 0
+      ? (x - TRACK_INSET) / previousTravelWidth
+      : (direction > 0 ? 0 : 1);
+    trackWidth = journeyLine.clientWidth;
+    maxX = Math.max(TRACK_INSET, trackWidth - 32);
+    x = Math.max(TRACK_INSET, Math.min(maxX, TRACK_INSET + progress * (maxX - TRACK_INSET)));
+    journeyLine.querySelectorAll('.journey-dot').forEach((dot) => dot.remove());
+    dots = [];
+
+    for (let dotX = 39; dotX <= trackWidth - 39; dotX += DOT_SPACING) {
+      const element = document.createElement('i');
+      element.className = 'journey-dot';
+      element.style.left = `${dotX}px`;
+      journeyLine.insertBefore(element, pacman);
+      dots.push({ element, x: dotX });
+    }
+
+    journeyLine.classList.add('is-scripted');
+    phase = 'normal';
+    pacman.classList.remove('is-confused');
+    resetDots();
+    planDetour();
+    renderPacman();
+  }
+
+  function animateJourney(timestamp) {
+    if (!previousTime) previousTime = timestamp;
+    const elapsed = Math.min(50, timestamp - previousTime);
+    previousTime = timestamp;
+
+    if (phase === 'noticing') {
+      if (timestamp >= pauseUntil) {
+        phase = phaseAfterNotice;
+        pacman.classList.remove('is-confused');
+      }
+    } else if (maxX > 0) {
+      const speed = (maxX - TRACK_INSET) / LEG_DURATION;
+      x += direction * speed * elapsed;
+
+      if (phase === 'normal' || phase === 'returning') eatNearbyDots();
+
+      if (phase === 'normal' && detourAfterEaten !== null && eatenDotCount() >= detourAfterEaten) {
+        beginDetour();
+      }
+
+      if (phase === 'skipping' && reached(x, detourTurnAt, detourDirection)) {
+        x = detourTurnAt;
+        beginTurn('returning', -detourDirection, timestamp);
+      } else if (phase === 'returning' && reached(x, detourReturnAt, direction)) {
+        x = detourReturnAt;
+        beginTurn('normal', detourDirection, timestamp);
+      } else if (phase === 'normal' && (x >= maxX || x <= TRACK_INSET)) {
+        x = Math.max(TRACK_INSET, Math.min(maxX, x));
+        direction *= -1;
+        resetDots();
+        planDetour();
+      }
+    }
+
+    renderPacman();
+    window.requestAnimationFrame(animateJourney);
+  }
+
+  buildTrack();
+  window.requestAnimationFrame(animateJourney);
+
+  if ('ResizeObserver' in window) {
+    const journeyResizeObserver = new ResizeObserver(() => {
+      if (Math.abs(journeyLine.clientWidth - trackWidth) < 2) return;
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(buildTrack, 120);
+    });
+    journeyResizeObserver.observe(journeyLine);
+  }
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="扔奶瓶小游戏：抛起奶瓶赚取金币，购买更多奶瓶并解锁天赋。">
+  <title>扔奶瓶｜赵正意</title>
+  <script>(()=>{const root=document.documentElement;let theme;let style;try{theme=localStorage.getItem('theme');style=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.style=style||'classic';})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="images/life-avatar-favicon.jpg" type="image/jpeg">
+</head>
+<body class="game-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="返回首页"><span class="brand-mark">Repeat</span></a>
+    <div class="header-actions">
+      <nav id="site-nav" class="site-nav" aria-label="主导航"><a href="index.html">首页</a><a href="about.html">关于我</a><a href="portfolio.html">作品集</a><a class="active" href="game.html" aria-current="page">小游戏</a></nav>
+      <div class="display-controls" role="group" aria-label="显示设置">
+        <button class="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><span aria-hidden="true">☾</span></button>
+        <button class="style-toggle" type="button" aria-label="切换抽象派风格" aria-pressed="false" title="切换抽象派风格"><span aria-hidden="true">◆</span></button>
+      </div>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="game-shell section-shell" aria-label="扔奶瓶游戏区">
+      <div class="game-toolbar">
+        <div class="game-hud">
+          <div><span>现有资金</span><strong>¥<span data-money>0</span></strong></div>
+          <div><span>奶瓶数量</span><strong><span data-bottle-count>1</span> 个</strong></div>
+          <div><span>累计抛掷</span><strong><span data-toss-count>0</span> 次</strong></div>
+        </div>
+        <button class="game-reset" type="button" data-reset-game>重新开始</button>
+      </div>
+
+      <div class="game-layout">
+        <section class="bottle-zone" aria-labelledby="bottle-zone-title">
+          <header>
+            <div><p class="game-label">THROWING FLOOR</p><h2 id="bottle-zone-title">奶瓶场</h2></div>
+            <p data-throw-hint>点击任意奶瓶，把它抛起来。</p>
+          </header>
+          <div class="bottle-stage" id="bottle-stage" aria-label="可抛掷的奶瓶"></div>
+          <p class="game-announcement" id="game-announcement" role="status" aria-live="polite">准备好就抛一次。</p>
+        </section>
+
+        <aside class="game-sidebar" aria-label="商店和天赋">
+          <section class="game-panel shop-panel">
+            <p class="game-label">SHOP / 商店</p>
+            <h2>购买奶瓶</h2>
+            <p>每多一只奶瓶，就多一个可以独立抛掷的机会。购买价格会持续上涨。</p>
+            <button class="game-buy-button" type="button" data-buy-bottle><span>再买一只</span><strong>¥<span data-bottle-price>10</span></strong></button>
+          </section>
+
+          <section class="game-panel talent-panel">
+            <p class="game-label">TALENT / 天赋</p>
+            <h2>升级天赋</h2>
+            <article class="talent-card" data-talent-card="double">
+              <div><span>01</span><h3>双倍收益</h3></div>
+              <p>正立和倒立的收入都翻倍。</p>
+              <button type="button" data-buy-talent="double">¥40 解锁</button>
+            </article>
+            <article class="talent-card" data-talent-card="hover">
+              <div><span>02</span><h3>掠过即抛</h3></div>
+              <p>鼠标划过奶瓶时自动抛起，不用点击。</p>
+              <button type="button" data-buy-talent="hover">¥90 解锁</button>
+            </article>
+          </section>
+        </aside>
+      </div>
+
+      <section class="game-stats" aria-label="落地统计">
+        <div><span>正立</span><strong data-upright-count>0</strong></div>
+        <div><span>倒立</span><strong data-inverted-count>0</strong></div>
+        <div><span>侧落</span><strong data-side-count>0</strong></div>
+        <div class="combo-stat" data-combo-stat data-tier="0"><span>当前连击</span><strong><span data-combo-count>0</span><small data-combo-multiplier>×1</small></strong></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell"><p>© <span data-year></span> 赵正意</p><p>先抛一次，再想下一次。</p><a href="#main">回到顶部</a></footer>
+  <div class="toast game-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/game.js"></script>
+</body>
+</html>

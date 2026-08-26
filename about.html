@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="了解赵正意的简介、经历、兴趣与联系方式。">
   <title>关于我｜赵正意</title>
-  <script>document.documentElement.dataset.theme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.style=localStorage.getItem('site-style')||'classic';</script>
+  <script>(()=>{const root=document.documentElement;let theme;let style;try{theme=localStorage.getItem('theme');style=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.style=style||'classic';})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="images/life-avatar-favicon.jpg" type="image/jpeg">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -17,9 +18,9 @@
     <a class="brand" href="index.html" aria-label="返回首页"><span class="brand-mark">Repeat</span></a>
     <div class="header-actions">
       <nav id="site-nav" class="site-nav" aria-label="主导航">
-        <a href="index.html">首页</a><a class="active" href="about.html" aria-current="page">关于我</a><a href="portfolio.html">作品集</a>
+        <a href="index.html">首页</a><a class="active" href="about.html" aria-current="page">关于我</a><a href="portfolio.html">作品集</a><a href="game.html">小游戏</a>
       </nav>
-      <div class="display-controls" aria-label="显示设置">
+      <div class="display-controls" role="group" aria-label="显示设置">
         <button class="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><span aria-hidden="true">☾</span></button>
         <button class="style-toggle" type="button" aria-label="切换抽象派风格" aria-pressed="false" title="切换抽象派风格"><span aria-hidden="true">◆</span></button>
       </div>
@@ -36,7 +37,7 @@
         <p>很多事情没有捷径。我更愿意把目标拆成眼前的一步，认真做完，再走下一步。这个网站记录的，也是这些一步一步留下来的东西。</p>
       </div>
       <aside class="profile-card reveal" data-delay="1">
-        <img class="id-photo" src="images/%E8%AF%81%E4%BB%B6%E7%85%A7.jpg" alt="赵正意的证件照">
+        <img class="id-photo" src="images/profile-photo-720.jpg" width="720" height="1008" alt="赵正意的证件照" decoding="async">
         <div><p>姓名</p><strong>赵正意</strong></div>
         <div><p>当前状态</p><strong>学习中 · 创作中</strong></div>
       </aside>
