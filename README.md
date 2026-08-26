@@ -6,7 +6,8 @@
 
 - 首页：个人介绍、生活头像、近期作品入口和动态渐变交互
 - 关于我：个人简介、经历时间线、兴趣爱好和联系方式
-- 作品集：项目截图轮播、项目详情弹窗和作品入口
+- 作品集：项目截图、可扩展轮播框架、项目详情弹窗和作品入口
+- 小游戏：扔奶瓶、购买奶瓶、连击奖励和天赋升级
 - 显示设置：浅色／深色模式，以及经典／抽象工业派风格
 - 响应式布局：适配桌面端和移动端，并支持减少动态效果设置
 
@@ -17,12 +18,24 @@
 ├─ index.html
 ├─ about.html
 ├─ portfolio.html
+├─ game.html
 ├─ assets/
 │  ├─ css/style.css
-│  └─ js/main.js
+│  └─ js/
+│     ├─ main.js
+│     └─ game.js
 └─ images/
    ├─ 生活头像.jpg
-   └─ 证件照.jpg
+   ├─ 证件照.jpg
+   ├─ life-avatar-640.jpg
+   ├─ life-avatar-1080.jpg
+   ├─ life-avatar-favicon.jpg
+   ├─ profile-photo-720.jpg
+   └─ projects/
+      ├─ deploy-helper.png
+      ├─ papertrail.png
+      ├─ maildock.png
+      └─ romance-generator.png
 ```
 
 ## 本地查看
@@ -42,7 +55,8 @@ python -m http.server 8000
 - 头像文件统一放在 `images/` 目录。
 - 联系方式、经历和兴趣爱好在 `about.html` 中修改。
 - 项目名称、介绍和标签在 `portfolio.html` 中修改。
-- 添加作品截图时，将图片放入 `images/`，再替换项目卡片中的占位内容。
+- 添加作品截图时，将图片放入 `images/projects/`，再更新首页和作品集中的图片引用。
+- 游戏规则、价格和天赋逻辑在 `assets/js/game.js` 中修改，页面结构在 `game.html` 中修改。
 
 ## 部署
 
