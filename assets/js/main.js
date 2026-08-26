@@ -96,7 +96,7 @@ if (menuButton && nav) {
     if (event.key === 'Escape' && nav.classList.contains('open')) closeMenu(true);
   });
 
-  const mobileNavigationQuery = window.matchMedia('(max-width: 800px)');
+  const mobileNavigationQuery = window.matchMedia('(max-width: 960px)');
   mobileNavigationQuery.addEventListener?.('change', (event) => {
     if (!event.matches) closeMenu();
   });
@@ -106,6 +106,7 @@ document.querySelectorAll('[data-year]').forEach((node) => {
   node.textContent = new Date().getFullYear();
 });
 
+document.documentElement.classList.add('reveal-ready');
 const revealItems = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
