@@ -48,6 +48,7 @@ systemThemeQuery.addEventListener?.('change', (event) => {
 
 const styleButton = document.querySelector('.style-toggle');
 const styleIcon = styleButton?.querySelector('span[aria-hidden="true"]');
+const editorialButton = document.querySelector('.editorial-toggle');
 
 function updateStyleButton(style) {
   if (!styleButton) return;
@@ -59,15 +60,37 @@ function updateStyleButton(style) {
   if (styleIcon) styleIcon.textContent = isAbstract ? '▦' : '◆';
 }
 
+function updateEditorialButton(style) {
+  if (!editorialButton) return;
+  const isEditorial = style === 'editorial';
+  const label = isEditorial ? '切换经典风格' : '切换照片编辑风格';
+  editorialButton.setAttribute('aria-pressed', String(isEditorial));
+  editorialButton.setAttribute('aria-label', label);
+  editorialButton.title = label;
+}
+
+function setStyle(style) {
+  document.documentElement.dataset.style = style;
+  savePreference('site-style', style);
+  updateStyleButton(style);
+  updateEditorialButton(style);
+}
+
+const initialStyle = document.documentElement.dataset.style || 'classic';
+updateStyleButton(initialStyle);
+updateEditorialButton(initialStyle);
+
 if (styleButton) {
-  updateStyleButton(document.documentElement.dataset.style || 'classic');
   styleButton.addEventListener('click', () => {
     const nextStyle = document.documentElement.dataset.style === 'abstract' ? 'classic' : 'abstract';
-    document.documentElement.dataset.style = nextStyle;
-    savePreference('site-style', nextStyle);
-    updateStyleButton(nextStyle);
+    setStyle(nextStyle);
   });
 }
+
+editorialButton?.addEventListener('click', () => {
+  const nextStyle = document.documentElement.dataset.style === 'editorial' ? 'classic' : 'editorial';
+  setStyle(nextStyle);
+});
 
 if (menuButton && nav) {
   function closeMenu(returnFocus = false) {
