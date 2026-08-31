@@ -50,46 +50,41 @@ const styleButton = document.querySelector('.style-toggle');
 const styleIcon = styleButton?.querySelector('span[aria-hidden="true"]');
 const editorialButton = document.querySelector('.editorial-toggle');
 
-function updateStyleButton(style) {
+function updateStyleButton(isAbstract) {
   if (!styleButton) return;
-  const isAbstract = style === 'abstract';
-  const label = isAbstract ? '切换经典风格' : '切换抽象派风格';
+  const label = isAbstract ? '关闭抽象派风格' : '开启抽象派风格';
   styleButton.setAttribute('aria-pressed', String(isAbstract));
   styleButton.setAttribute('aria-label', label);
   styleButton.title = label;
   if (styleIcon) styleIcon.textContent = isAbstract ? '▦' : '◆';
 }
 
-function updateEditorialButton(style) {
+function updateEditorialButton(isEditorial) {
   if (!editorialButton) return;
-  const isEditorial = style === 'editorial';
-  const label = isEditorial ? '切换经典风格' : '切换照片编辑风格';
+  const label = isEditorial ? '关闭照片编辑风格' : '开启照片编辑风格';
   editorialButton.setAttribute('aria-pressed', String(isEditorial));
   editorialButton.setAttribute('aria-label', label);
   editorialButton.title = label;
 }
 
-function setStyle(style) {
-  document.documentElement.dataset.style = style;
-  savePreference('site-style', style);
-  updateStyleButton(style);
-  updateEditorialButton(style);
+function setStyleLayer(layer, enabled) {
+  document.documentElement.dataset[layer] = String(enabled);
+  savePreference(`${layer}-style`, String(enabled));
+  if (layer === 'abstract') updateStyleButton(enabled);
+  if (layer === 'editorial') updateEditorialButton(enabled);
 }
 
-const initialStyle = document.documentElement.dataset.style || 'classic';
-updateStyleButton(initialStyle);
-updateEditorialButton(initialStyle);
+updateStyleButton(document.documentElement.dataset.abstract === 'true');
+updateEditorialButton(document.documentElement.dataset.editorial === 'true');
 
 if (styleButton) {
   styleButton.addEventListener('click', () => {
-    const nextStyle = document.documentElement.dataset.style === 'abstract' ? 'classic' : 'abstract';
-    setStyle(nextStyle);
+    setStyleLayer('abstract', document.documentElement.dataset.abstract !== 'true');
   });
 }
 
 editorialButton?.addEventListener('click', () => {
-  const nextStyle = document.documentElement.dataset.style === 'editorial' ? 'classic' : 'editorial';
-  setStyle(nextStyle);
+  setStyleLayer('editorial', document.documentElement.dataset.editorial !== 'true');
 });
 
 if (menuButton && nav) {
