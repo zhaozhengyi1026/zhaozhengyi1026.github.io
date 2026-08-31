@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="了解赵正意的简介、经历、兴趣与联系方式。">
   <title>关于我｜赵正意</title>
-  <script>(()=>{const root=document.documentElement;root.classList.add('js');let theme;let style;try{theme=localStorage.getItem('theme');style=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.style=style||'classic';})();</script>
+  <script>(()=>{const root=document.documentElement;root.classList.add('js');let theme,abstractStyle,editorialStyle,legacyStyle;try{theme=localStorage.getItem('theme');abstractStyle=localStorage.getItem('abstract-style');editorialStyle=localStorage.getItem('editorial-style');legacyStyle=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.abstract=abstractStyle??String(legacyStyle==='abstract');root.dataset.editorial=editorialStyle??String(legacyStyle==='editorial');})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20260827.1">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260901.1">
   <link rel="icon" href="images/life-avatar-favicon.jpg" type="image/jpeg">
 </head>
 <body>
@@ -71,7 +71,7 @@
             <p>香港中文大学（深圳）</p>
           </article>
         </li>
-        <li class="timeline-item reveal">
+        <li class="timeline-item timeline-item-compact reveal">
           <article class="timeline-card">
             <h3>数据科学学院优秀本科生助教</h3>
             <time datetime="2026-02">2026.2</time>
@@ -182,6 +182,6 @@
 
   <footer class="site-footer section-shell"><p>© <span data-year></span> 赵正意</p><p>保持好奇，持续创造。</p><a href="#main">回到顶部</a></footer>
   <div class="toast" role="status" aria-live="polite"></div>
-  <script src="assets/js/main.js?v=20260827.1"></script>
+  <script src="assets/js/main.js?v=20260830.1"></script>
 </body>
 </html>

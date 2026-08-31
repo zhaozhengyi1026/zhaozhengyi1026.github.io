@@ -1,63 +1,10 @@
-# 赵正意的个人网站
+# 网站链接
 
-这是一个使用原生 HTML、CSS 和 JavaScript 构建的个人网站，可直接部署到 GitHub Pages，无需构建工具。
+[点这里逛逛 Repeat](https://zhaozhengyi1026.github.io/)
 
-## 网站内容
+# 网站内容
 
-- 首页：个人介绍、生活头像、近期作品入口和动态渐变交互
-- 关于我：个人简介、经历时间线、兴趣爱好和联系方式
-- 作品集：项目截图、可扩展轮播框架、项目详情弹窗和作品入口
-- 小游戏：扔奶瓶、购买奶瓶、连击奖励和天赋升级
-- 显示设置：浅色／深色模式，以及经典／抽象工业派风格
-- 响应式布局：适配桌面端和移动端，并支持减少动态效果设置
-
-## 项目结构
-
-```text
-.
-├─ index.html
-├─ about.html
-├─ portfolio.html
-├─ game.html
-├─ assets/
-│  ├─ css/style.css
-│  └─ js/
-│     ├─ main.js
-│     └─ game.js
-└─ images/
-   ├─ 生活头像.jpg
-   ├─ 证件照.jpg
-   ├─ life-avatar-640.jpg
-   ├─ life-avatar-1080.jpg
-   ├─ life-avatar-favicon.jpg
-   ├─ profile-photo-720.jpg
-   └─ projects/
-      ├─ deploy-helper.png
-      ├─ papertrail.png
-      ├─ maildock.png
-      └─ romance-generator.png
-```
-
-## 本地查看
-
-在项目目录中运行：
-
-```powershell
-python -m http.server 8000
-```
-
-然后在浏览器访问 `http://localhost:8000/`。
-
-也可以直接打开 `index.html`，但使用本地服务器更接近 GitHub Pages 的实际访问方式。
-
-## 更新内容
-
-- 头像文件统一放在 `images/` 目录。
-- 联系方式、经历和兴趣爱好在 `about.html` 中修改。
-- 项目名称、介绍和标签在 `portfolio.html` 中修改。
-- 添加作品截图时，将图片放入 `images/projects/`，再更新首页和作品集中的图片引用。
-- 游戏规则、价格和天赋逻辑在 `assets/js/game.js` 中修改，页面结构在 `game.html` 中修改。
-
-## 部署
-
-仓库推送到 GitHub 后，可在仓库设置的 Pages 页面中选择从 `main` 分支根目录发布。
+- 首页：先认识一下我，再看看最近又折腾出了什么新东西。还有一只偶尔迷路的吃豆人，正在努力把豆子吃干净。
+- 关于我：人生经历排成了一条时间线，往下还能找到我的兴趣爱好和联系方式。
+- 作品集：放着我做过的网站和项目。截图可以点，成品也可以直接进去玩玩。
+- 小游戏：扔奶瓶赚钱、买更多奶瓶、升级天赋。正着落地赚 1 块，倒着落地赚 6 块，能不能发财就看手气了。
