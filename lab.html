@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="赵正意的前端实验室，收录关于图像、运动与交互的页面实验。">
+  <title>实验室｜赵正意</title>
+  <script>(()=>{const root=document.documentElement;root.classList.add('js');let theme,abstractStyle,editorialStyle,legacyStyle;try{theme=localStorage.getItem('theme');abstractStyle=localStorage.getItem('abstract-style');editorialStyle=localStorage.getItem('editorial-style');legacyStyle=localStorage.getItem('site-style');}catch(error){}root.dataset.theme=theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.abstract=abstractStyle??String(legacyStyle==='abstract');root.dataset.editorial=editorialStyle??String(legacyStyle==='editorial');})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260902.2">
+  <link rel="icon" href="images/life-avatar-favicon.jpg" type="image/jpeg">
+</head>
+<body class="lab-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="返回首页"><span class="brand-mark">Repeat</span></a>
+    <div class="header-actions">
+      <nav id="site-nav" class="site-nav" aria-label="主导航"><a href="index.html">首页</a><a href="about.html">关于我</a><a href="portfolio.html">作品集</a><a href="game.html">小游戏</a><a class="active" href="lab.html" aria-current="page">实验室</a></nav>
+      <div class="display-controls" role="group" aria-label="显示设置">
+        <button class="theme-toggle" type="button" aria-label="切换深色模式" aria-pressed="false"><span aria-hidden="true">☾</span></button>
+        <button class="style-toggle" type="button" aria-label="切换抽象派风格" aria-pressed="false" title="切换抽象派风格"><span aria-hidden="true">◆</span></button>
+        <button class="editorial-toggle" type="button" aria-label="切换照片编辑风格" aria-pressed="false" title="切换照片编辑风格"><span class="editorial-glyph" aria-hidden="true"></span></button>
+      </div>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">菜单</button>
+    </div>
+  </header>
+
+  <main id="main" class="lab-main section-shell">
+    <header class="lab-header reveal">
+      <p class="section-kicker">LAB / 实验室</p>
+      <h1>一些还在<br>生长的页面。</h1>
+      <p>这里不急着给想法定型。移动指针、滚动页面，看看图像会怎么回应。</p>
+    </header>
+
+    <section class="experiment-grid" aria-label="前端实验列表">
+      <a class="experiment-card reveal" href="lab-wolf.html">
+        <div class="experiment-media wolf-preview" aria-hidden="true"><span class="wolf-moon"></span><span class="wolf-mark">WILD</span></div>
+        <div class="experiment-meta"><p>WebGL · Drag · Scroll</p><h2>狼头</h2><span>在切片与扰动中唤醒荒野</span></div>
+      </a>
+      <a class="experiment-card reveal" data-delay="1" href="lab-whale.html">
+        <div class="experiment-media whale-preview"><video src="lab-experiments/assets/whale.mp4" muted autoplay loop playsinline preload="metadata" aria-label="鲸鱼跃出水面预览"></video><span aria-hidden="true">BREACH</span></div>
+        <div class="experiment-meta"><p>Video · Pointer · Scroll</p><h2>鲸鱼跃水</h2><span>让滚动成为海面的潮汐</span></div>
+      </a>
+      <a class="experiment-card reveal" data-delay="2" href="lab-rebirth.html">
+        <div class="experiment-media rebirth-preview" aria-hidden="true"><img src="lab-experiments/assets/dry-wood.jpg" alt=""><img src="lab-experiments/assets/spring-wood.jpg" alt=""></div>
+        <div class="experiment-meta"><p>Reveal · Parallax · Growth</p><h2>枯木逢春</h2><span>从余烬里拖出一层新绿</span></div>
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer section-shell"><p>© <span data-year></span> 赵正意</p><p>边做，边试，边推翻。</p><a href="#main">回到顶部</a></footer>
+  <script src="assets/js/main.js?v=20260830.1"></script>
+</body>
+</html>
