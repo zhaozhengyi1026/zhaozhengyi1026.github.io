@@ -9,56 +9,44 @@
   <style>
     html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #fff; }
     iframe { display: block; width: 100%; height: 100%; border: 0; }
-    .wolf-brand { position: fixed; z-index: 30; top: 18px; left: 18px; display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border: 1px solid rgba(255,92,24,.75); border-radius: 999px; color: #111; background: rgba(255,255,255,.84); box-shadow: inset 0 -2px 0 #ff5c18, 0 0 18px rgba(255,92,24,.2); font: italic 750 15px/1 Arial, sans-serif; text-decoration: none; white-space: nowrap; backdrop-filter: blur(10px); }
+    .wolf-brand { position: fixed; z-index: 40; top: 18px; left: 18px; display: inline-flex; align-items: center; min-height: 42px; color: #111; font: italic 750 15px/1 Arial, sans-serif; letter-spacing: -.03em; white-space: nowrap; pointer-events: none; }
     .wolf-countdown { position: fixed; z-index: 30; top: calc(50% + 145px); left: 50%; color: #27313a; font: 18px/1 ui-monospace, Consolas, monospace; letter-spacing: .16em; transform: translateX(-50%); transition: opacity .3s ease; }
     .wolf-ready { position: fixed; z-index: 30; top: 50%; left: 50%; color: #27313a; font: 700 20px/1 Arial, sans-serif; white-space: nowrap; transform: translate(-50%, -50%); transition: opacity .3s ease; }
     .wolf-countdown.is-done, .wolf-ready.is-done { opacity: 0; }
-    .lab-return { position: fixed; z-index: 20; right: 18px; bottom: 18px; display: inline-flex; align-items: center; justify-content: center; min-width: 92px; height: 42px; padding: 0 18px; border: 1px solid currentColor; border-radius: 999px; color: #fff; background: rgba(0,0,0,.62); font: 600 13px/1 "Microsoft YaHei", sans-serif; text-decoration: none; backdrop-filter: blur(10px); mix-blend-mode: difference; transition: transform .25s ease, background .25s ease; }
-    .lab-return:hover { background: #000; transform: translateY(-3px); }
+    .lab-return { position: fixed; z-index: 40; top: 18px; right: 18px; display: inline-flex; align-items: center; justify-content: center; min-width: 104px; height: 42px; padding: 0 18px; border: 1px solid rgba(17,17,17,.82); border-radius: 999px; color: #111; background: rgba(255,255,255,.92); box-shadow: 0 8px 28px rgba(0,0,0,.12); font: 600 13px/1 "Microsoft YaHei", sans-serif; text-decoration: none; white-space: nowrap; -webkit-font-smoothing: antialiased; transition: color .25s ease, background .25s ease, top .35s cubic-bezier(.22,1,.36,1), bottom .35s cubic-bezier(.22,1,.36,1), transform .25s ease; }
+    .lab-return.is-at-bottom { top: auto; bottom: 18px; }
+    .lab-return:hover { color: #fff; background: #111; transform: translateY(-2px); }
     .lab-return:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   </style>
 </head>
 <body>
   <iframe id="wolf-frame" src="lab-experiments/wolf/index.html" title="狼头互动实验" allow="autoplay; fullscreen"></iframe>
-  <a class="wolf-brand" href="lab.html">Repeat/Lab</a>
+  <span class="wolf-brand" aria-label="Repeat Lab">Repeat/Lab</span>
+  <a class="lab-return" href="lab.html">返回实验室</a>
   <span class="wolf-ready" aria-hidden="true">Are You Ready</span>
   <span class="wolf-countdown" aria-hidden="true">3</span>
-  <a class="lab-return" href="lab.html">返回实验室</a>
   <script>
     const frame = document.querySelector('#wolf-frame');
     const wolfReady = document.querySelector('.wolf-ready');
     const wolfCountdown = document.querySelector('.wolf-countdown');
-    const primaryLinks = [
-      ['../../index.html', '首页'],
-      ['../../about.html', '关于我'],
-      ['../../portfolio.html', '作品集'],
-      ['../../game.html', '小游戏']
-    ];
+    const labReturn = document.querySelector('.lab-return');
 
     frame.addEventListener('load', () => {
       const frameDocument = frame.contentDocument;
       const root = frameDocument?.querySelector('#root');
       if (!frameDocument || !root) return;
 
-      const replaceNavigation = () => {
-        frameDocument.querySelectorAll('nav').forEach((nav) => {
-          [...nav.querySelectorAll('a')].slice(0, primaryLinks.length).forEach((anchor, index) => {
-            if (anchor.dataset.repeatNav === 'true') return;
-            const [href, label] = primaryLinks[index];
-            anchor.href = href;
-            anchor.target = '_top';
-            anchor.textContent = label;
-            anchor.dataset.repeatNav = 'true';
-          });
+      const cleanWolfPage = () => {
+        frameDocument.querySelectorAll('header, #s1-cta').forEach((element) => {
+          element.style.setProperty('display', 'none', 'important');
         });
 
-        frameDocument.querySelectorAll('a').forEach((anchor) => {
-          const href = anchor.getAttribute('href');
-          if (href !== '/contact' || anchor.dataset.repeatNav === 'true') return;
-          anchor.href = '../../lab.html';
-          anchor.target = '_top';
-          anchor.textContent = '实验室';
-          anchor.dataset.repeatNav = 'true';
+        const globe = frameDocument.querySelector('svg.w-10.h-6');
+        const infoCard = globe?.closest('div.flex.border');
+        if (infoCard) infoCard.style.setProperty('display', 'none', 'important');
+
+        frameDocument.querySelectorAll('a[href="/contact"]').forEach((anchor) => {
+          anchor.style.setProperty('display', 'none', 'important');
         });
 
         const walker = frameDocument.createTreeWalker(root, frame.contentWindow.NodeFilter.SHOW_TEXT);
@@ -73,14 +61,27 @@
             node.nodeValue = '';
             return;
           }
-          const keepNavigation = parent.closest('nav') || parent.closest('[data-repeat-nav="true"]');
           const keepLoader = text === '+';
-          if (!keepNavigation && !keepLoader) node.nodeValue = '';
+          if (!keepLoader) node.nodeValue = '';
         });
       };
 
-      new MutationObserver(replaceNavigation).observe(root, { childList: true, characterData: true, subtree: true });
-      replaceNavigation();
+      const updateReturnPosition = () => {
+        const scrollingElement = frameDocument.scrollingElement;
+        if (!scrollingElement) return;
+        const canScroll = scrollingElement.scrollHeight > frame.contentWindow.innerHeight + 120;
+        const nearBottom = scrollingElement.scrollTop + frame.contentWindow.innerHeight >= scrollingElement.scrollHeight - 120;
+        labReturn.classList.toggle('is-at-bottom', canScroll && nearBottom);
+      };
+
+      new MutationObserver(() => {
+        cleanWolfPage();
+        updateReturnPosition();
+      }).observe(root, { childList: true, characterData: true, subtree: true });
+      frame.contentWindow.addEventListener('scroll', updateReturnPosition, { passive: true });
+      frame.contentWindow.addEventListener('resize', updateReturnPosition);
+      cleanWolfPage();
+      updateReturnPosition();
     });
 
     let remaining = 3;

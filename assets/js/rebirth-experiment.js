@@ -5,6 +5,7 @@ const counter = document.querySelector('.loader-count');
 const stage = document.querySelector('[data-rebirth-stage]');
 const scene = stage?.querySelector('.rebirth-scene');
 const seedField = document.querySelector('.seed-field');
+const returnButton = document.querySelector('.experiment-return');
 
 function finishLoader() {
   loader?.classList.add('is-done');
@@ -27,6 +28,18 @@ if (reducedMotion || skipIntro) {
     finishLoader();
   }, 1000);
 }
+
+function updateReturnPosition() {
+  const scrollingElement = document.scrollingElement;
+  if (!scrollingElement || !returnButton) return;
+  const canScroll = scrollingElement.scrollHeight > window.innerHeight + 2;
+  const nearBottom = window.scrollY + window.innerHeight >= scrollingElement.scrollHeight - 80;
+  returnButton.classList.toggle('is-at-bottom', canScroll && nearBottom);
+}
+
+window.addEventListener('scroll', updateReturnPosition, { passive: true });
+window.addEventListener('resize', updateReturnPosition);
+updateReturnPosition();
 
 for (let index = 0; index < 26; index += 1) {
   const seed = document.createElement('span');
