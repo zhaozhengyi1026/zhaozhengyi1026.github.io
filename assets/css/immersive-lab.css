@@ -32,6 +32,8 @@ button { font: inherit; }
 .experiment-nav nav { display: flex; gap: 8px; }
 .experiment-nav nav a { display: inline-flex; align-items: center; justify-content: center; min-width: 82px; height: 38px; padding: 0 16px; border: 1px solid currentColor; border-radius: 999px; font-size: 14px; transition: color .25s ease, background .25s ease, transform .25s ease; }
 .experiment-nav nav a:hover { color: var(--lab-black); background: var(--lab-white); transform: translateY(-2px); }
+.experiment-nav .experiment-return { position: fixed; top: 22px; right: clamp(20px, 3vw, 48px); transition: color .25s ease, background .25s ease, transform .25s ease, top .35s cubic-bezier(.22,1,.36,1), bottom .35s cubic-bezier(.22,1,.36,1); }
+.experiment-nav .experiment-return.is-at-bottom { top: auto; bottom: 22px; }
 
 .scroll-experiment { position: relative; height: 280svh; }
 .whale-experiment-static { height: 100svh; }
@@ -49,10 +51,9 @@ button { font: inherit; }
 .scroll-meter i::after { content: ""; position: absolute; inset: 0; background: var(--lab-white); transform: scaleX(var(--progress)); transform-origin: left; }
 .experiment-outro { min-height: 85svh; display: grid; place-items: center; padding: 12vw 7vw; text-align: center; }
 .experiment-outro p { max-width: 900px; margin: 0; font-size: clamp(38px, 7vw, 104px); font-weight: 500; line-height: .98; letter-spacing: -.06em; }
-.experiment-outro a { display: inline-flex; margin-top: 48px; padding: 13px 22px; border: 1px solid var(--lab-line); border-radius: 999px; font-size: 14px; }
 
 .whale-scene { --lab-accent: #6fe5ee; background: radial-gradient(ellipse 72% 66% at 46% 51%, #08232c 0%, #031117 42%, #000 78%); }
-.whale-frame { position: absolute; z-index: 1; top: 50%; left: 48%; width: 118vw; height: 118vh; overflow: hidden; background: transparent; -webkit-mask-image: radial-gradient(ellipse 50% 54% at 47% 50%, #000 0 34%, rgba(0,0,0,.92) 46%, rgba(0,0,0,.55) 59%, rgba(0,0,0,.12) 70%, transparent 79%); mask-image: radial-gradient(ellipse 50% 54% at 47% 50%, #000 0 34%, rgba(0,0,0,.92) 46%, rgba(0,0,0,.55) 59%, rgba(0,0,0,.12) 70%, transparent 79%); transform: translate3d(calc(-50% + var(--px) * 12px), calc(-50% + var(--py) * 9px), 0); transition: transform .18s ease-out; }
+.whale-frame { position: absolute; z-index: 1; top: 50%; left: 48%; width: 108vw; height: 108vh; overflow: hidden; background: transparent; -webkit-mask-image: radial-gradient(ellipse 50% 54% at 47% 50%, #000 0 34%, rgba(0,0,0,.92) 46%, rgba(0,0,0,.55) 59%, rgba(0,0,0,.12) 70%, transparent 79%); mask-image: radial-gradient(ellipse 50% 54% at 47% 50%, #000 0 34%, rgba(0,0,0,.92) 46%, rgba(0,0,0,.55) 59%, rgba(0,0,0,.12) 70%, transparent 79%); transform: translate3d(calc(-50% + var(--px) * 12px), calc(-50% + var(--py) * 9px), 0); transition: transform .18s ease-out; }
 .whale-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 44% 48% at 46% 50%, transparent 24%, rgba(0,5,8,.1) 48%, rgba(0,0,0,.74) 76%, #000 100%); }
 .whale-video { width: 100%; height: 100%; object-fit: cover; object-position: 43% 50%; filter: saturate(.82) contrast(1.13) brightness(.78); transform: scale(1.02); }
 .ocean-glow { position: absolute; z-index: 2; inset: 0; pointer-events: none; background: radial-gradient(ellipse 38% 36% at calc(46% + var(--px) * 2%) calc(50% + var(--py) * 2%), rgba(82,205,220,.1), transparent 70%), radial-gradient(ellipse 62% 58% at 46% 51%, transparent 28%, rgba(0,0,0,.5) 68%, #000 100%); }
@@ -68,7 +69,8 @@ button { font: inherit; }
 
 .rebirth-scene { --reveal: 0%; background: #020302; cursor: ew-resize; }
 .rebirth-image { position: absolute; inset: -3%; width: 106%; height: 106%; object-fit: cover; transform: translate3d(calc(var(--px) * 14px), calc(var(--py) * 10px), 0) scale(1.03); }
-.rebirth-spring { z-index: 2; clip-path: inset(0 calc(100% - var(--reveal)) 0 0); will-change: clip-path; }
+.rebirth-reveal { position: absolute; z-index: 2; inset: 0; overflow: hidden; clip-path: inset(0 calc(100% - var(--reveal)) 0 0); will-change: clip-path; }
+.rebirth-spring { z-index: 1; }
 .rebirth-handle { position: absolute; z-index: 7; top: 0; bottom: 0; left: var(--reveal); width: 1px; background: rgba(239,255,216,.9); box-shadow: 0 0 25px rgba(159,255,81,.7); pointer-events: none; }
 .rebirth-handle::before { content: "↔"; position: absolute; top: 50%; left: 50%; display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid rgba(239,255,216,.85); border-radius: 50%; color: #f0ffe2; background: rgba(0,0,0,.42); transform: translate(-50%, -50%); }
 .rebirth-scene .scene-title { color: #f4ffd9; }
@@ -80,10 +82,11 @@ button { font: inherit; }
 @media (max-width: 700px) {
   .experiment-nav { padding: 16px; }
   .experiment-nav nav a { min-width: 0; height: 34px; padding-inline: 12px; }
-  .experiment-nav nav a:first-child { display: none; }
+  .experiment-nav .experiment-return { top: 16px; right: 16px; }
+  .experiment-nav .experiment-return.is-at-bottom { top: auto; bottom: 16px; }
   .scene-copy { justify-content: flex-end; padding: 24px 20px 130px; }
   .scene-title { font-size: clamp(66px, 25vw, 110px); }
-  .whale-frame { left: 50%; width: 145vw; height: 116vh; }
+  .whale-frame { left: 50%; width: 132vw; height: 108vh; }
   .scene-note { right: 20px; bottom: 74px; left: 20px; max-width: none; }
   .loader-count { margin-top: 290px; }
 }

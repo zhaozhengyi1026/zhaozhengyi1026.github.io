@@ -8,6 +8,10 @@ const scene = stage?.querySelector('.experiment-scene');
 const video = document.querySelector('.whale-video');
 const bubbles = document.querySelector('.bubble-field');
 const previewTime = Number(pageParams.get('time'));
+const returnButton = document.querySelector('.experiment-return');
+
+video?.pause();
+if (video && !pageParams.has('time')) video.currentTime = 0;
 
 if (pageParams.has('time') && Number.isFinite(previewTime)) {
   video?.addEventListener('loadedmetadata', () => {
@@ -19,7 +23,15 @@ if (pageParams.has('time') && Number.isFinite(previewTime)) {
 function finishLoader() {
   loader?.classList.add('is-done');
   document.body.style.overflow = '';
-  if (!pageParams.has('time')) video?.play().catch(() => {});
+  if (pageParams.has('time') || !video) return;
+
+  const playFromStart = () => {
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  };
+
+  if (video.readyState >= 1) playFromStart();
+  else video.addEventListener('loadedmetadata', playFromStart, { once: true });
 }
 
 if (reducedMotion || skipIntro) {
@@ -38,6 +50,18 @@ if (reducedMotion || skipIntro) {
     finishLoader();
   }, 1000);
 }
+
+function updateReturnPosition() {
+  const scrollingElement = document.scrollingElement;
+  if (!scrollingElement || !returnButton) return;
+  const canScroll = scrollingElement.scrollHeight > window.innerHeight + 2;
+  const nearBottom = window.scrollY + window.innerHeight >= scrollingElement.scrollHeight - 80;
+  returnButton.classList.toggle('is-at-bottom', canScroll && nearBottom);
+}
+
+window.addEventListener('scroll', updateReturnPosition, { passive: true });
+window.addEventListener('resize', updateReturnPosition);
+updateReturnPosition();
 
 for (let index = 0; index < 18; index += 1) {
   const bubble = document.createElement('span');
